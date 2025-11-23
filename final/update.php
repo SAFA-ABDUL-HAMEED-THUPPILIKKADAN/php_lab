@@ -14,6 +14,14 @@ if (isset($_POST['search'])) {
     if (mysqli_num_rows($result) > 0) {
         $student = mysqli_fetch_assoc($result);
     }
+
+    
+    $sql3 = "SELECT * FROM marks WHERE roll = '$selected_roll'";
+    $result3 = mysqli_query($conn, $sql3);
+
+    if (mysqli_num_rows($result3) > 0) {
+        $mark = mysqli_fetch_assoc($result3);
+    }
 }
 
 // When SAVE MARKS button is clicked
@@ -27,29 +35,19 @@ if (isset($_POST['save'])) {
 
     $total = $science + $maths + $english;
 
-    // 1) Check if marks are already entered
-    $check = "SELECT * FROM marks WHERE roll = '$roll'";
-    $check_result = mysqli_query($conn, $check);
+    $sql3 = "UPDATE marks SET science = '$science', maths = '$maths', english = '$english', total = '$total' where roll = '$roll'";
 
-    if (mysqli_num_rows($check_result) > 0) {
-        echo "<script>alert('Marks already exist for this student!');</script>";
+    if (mysqli_query($conn, $sql3)) {
+        echo "<script>alert('Marks Updated!');</script>";
     } else {
-        // 2) Insert new marks
-        $sql3 = "INSERT INTO marks (roll, science, maths, english, total)
-                 VALUES ('$roll', '$science', '$maths', '$english', '$total')";
-
-        if (mysqli_query($conn, $sql3)) {
-            echo "<script>alert('Marks saved!');</script>";
-        } else {
-            echo "<script>alert('Error saving marks!');</script>";
-        }
+        echo "<script>alert('Error Updating marks!');</script>";
     }
 }
 ?>
 <!DOCTYPE html>
 <html>
 <body>
-    <h1>Enter Your Marks Here</h1>
+    <h1>Mark Update</h1>
 
 <!-- SEARCH FORM -->
 <form method="POST">
@@ -71,6 +69,7 @@ if (isset($_POST['save'])) {
 
 <hr>
 
+
 <?php if ($student) { ?>
     <h3>Student Details</h3>
     Name: <?= $student['name'] ?><br><br>
@@ -79,11 +78,11 @@ if (isset($_POST['save'])) {
     <form method="POST">
         <input type="hidden" name="roll" value="<?= $student['roll'] ?>">
 
-        Science: <input type="number" name="science" required><br>
-        Maths:   <input type="number" name="maths" required><br>
-        English: <input type="number" name="english" required><br>
+        Science: <input type="number" name="science" value="<?= $mark['science'] ?? '' ?>"><br>
+        Maths:   <input type="number" name="maths" value="<?= $mark['maths'] ?? '' ?>"><br>
+        English: <input type="number" name="english" value="<?= $mark['english'] ?? '' ?>"><br>
 
-        <button type="submit" name="save">Save Marks</button>
+        <button type="submit" name="save">Update Marks</button>
     </form>
 <?php } ?>
 

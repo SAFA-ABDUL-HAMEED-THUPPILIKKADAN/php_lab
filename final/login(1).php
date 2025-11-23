@@ -1,11 +1,11 @@
 <?php
-    $name = $_POST['name'];
-    $pass = $_POST['pass'];
+$name = $_POST['name'];
+$pass = $_POST['pass'];
 
-            $servername = "localhost";
-            $username = "root";
-            $password = "";
-            $database = "db";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "db";
 
 $conn = mysqli_connect($servername, $username, $password, $database);
 
@@ -14,16 +14,16 @@ if (!$conn) {
 }
 
 
+$sql = "SELECT * FROM login WHERE name = '$name' AND pass = '$pass'";
+$result = mysqli_query($conn, $sql);
 
-        $sql="SELECT * FROM login WHERE name= '$name' AND pass='$pass'";
+if (mysqli_num_rows($result) > 0) {
 
-        $result=mysqli_query($conn ,$sql);
+    echo "<script>alert('Login Successful'); window.location='home.php';</script>";
+    exit();
 
-        if (mysqli_num_rows($result) > 0){
-          
-            header("location:home.php");
-        }else{
-            echo "<script>alert('invalid username or password')</script>;";
-             header("location:login.php");
-        }
-
+} else {
+    echo "<script>alert('Invalid username or password'); window.location='login.php';</script>";
+    exit();
+}
+?>

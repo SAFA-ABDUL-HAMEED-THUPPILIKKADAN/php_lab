@@ -1,11 +1,11 @@
 <?php 
-    $roll=$_POST['roll'];
-    $name=$_POST['name'];
-    $address=$_POST['address'];
-    $phone=$_POST['phone'];
-    $username1=$_POST['username'];
-    $pass1=$_POST['pass1'];
-    $pass2=$_POST['pass2'];
+$roll = $_POST['roll'];
+$name = $_POST['name'];
+$address = $_POST['address'];
+$phone = $_POST['phone'];
+$username1 = $_POST['username'];
+$pass1 = $_POST['pass1'];
+$pass2 = $_POST['pass2'];
 
 $servername = "localhost";
 $username = "root";
@@ -18,35 +18,32 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
+if ($pass1 === $pass2) {
 
-
-    if($pass1 == $pass2){
-$insert_sql = "INSERT INTO student(roll, name, address,phoneno, username, password)
-                   VALUES ('$roll', '$name', '$address','$phone' , '$username1', '$pass1')";
+    $insert_sql = "INSERT INTO student (roll, name, address, phoneno, username, password)
+                   VALUES ('$roll', '$name', '$address', '$phone', '$username1', '$pass1')";
 
     if (mysqli_query($conn, $insert_sql)) {
+
         echo "<script>
                 alert('Record inserted successfully!');
-                document.location='home.php';
+                window.location = 'markentry.php';
               </script>";
+        exit();
+
     } else {
-        echo "<p style='color:red;'>Error: " . mysqli_error($conn) . "</p>";
+        echo "<script>
+                alert('Error while inserting record!');
+                window.location = 'home.php';
+              </script>";
+        exit();
     }
 
-    }
-    else{
-
-
-         echo "<p style='color:red;'>password didn't matched: </p>";
-    }
-
-
-
-    
-    
-
-
-
-
-
+} else {
+    echo "<script>
+            alert('Passwords do not match!');
+            window.location = 'home.php';
+          </script>";
+    exit();
+}
 ?>

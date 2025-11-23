@@ -40,10 +40,13 @@
             <a class="nav-link" href="home.php">Student Registration</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="mark.php">Mark Entry</a>
+            <a class="nav-link" href="markentry.php">Mark Entry</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="update.php">Mark Update</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link" href="studentdetails.php">Student Details</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="view.php">View Progress Card</a>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Iframe Navigation</title>
+    <style>
+      .container {
+        display: flex;
+        height: 100vh; /* full screen height */
+      }
+
+      .links {
+        width: 25%;
+        background: #f2f2f2;
+        padding: 20px;
+      }
+
+      .links a {
+        display: block;
+        padding: 10px;
+        margin-bottom: 10px;
+        background: #ddd;
+        text-decoration: none;
+        color: black;
+        border-radius: 5px;
+      }
+
+      .viewer {
+        flex-grow: 1;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Left side: Links -->
+      <div class="links">
+        <a href="https://www.wikipedia.org" target="myframe">Wikipedia</a>
+        <a href="https://www.google.com" target="myframe">Google</a>
+        <a href="https://www.github.com" target="myframe">GitHub</a>
+      </div>
+
+      <!-- Right side: Iframe -->
+      <div class="viewer">
+        <iframe name="myframe"></iframe>
+      </div>
+    </div>
+  </body>
+</html>
